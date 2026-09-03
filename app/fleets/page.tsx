@@ -28,30 +28,23 @@ export default function FleetsPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#272149]">
-      {/* 1. FLEETS GRID — blurs when modal is open */}
       <div className="relative z-0">
         <div className="mx-auto grid w-full max-w-[1712px] grid-cols-3 gap-6 pt-[140px]">
-          {/* map your fleets here, e.g. fleets.map(f => <FleetCard key={f.id} {...f} />) */}
         </div>
       </div>
 
-      {/* 2. BLUR OVERLAY + MODAL — only when creating a fleet */}
       {isCreateOpen && (
         <>
-          {/* Rectangle 2777 */}
           <div
             className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[10px]"
             aria-hidden="true"
           />
 
-          {/* Frame 1000003284 */}
           <div
             className="fixed z-40 flex flex-row items-center gap-[164px]"
             style={{ width: 1412, height: 563, left: 250, top: 258.5 }}
           >
-            {/* Frame 4527 — left column (breadcrumb + preview card) */}
             <div className="flex h-[563px] w-[550px] flex-col items-start gap-4">
-              {/* Fil d'ariane / Breadcrumb */}
               <nav className="flex h-7 w-[204px] flex-row items-center gap-1">
                 <span className="h-7 w-[135px] font-['Inter'] text-[18px] font-normal leading-7 text-white/70">
                   Votre répertoire
@@ -62,11 +55,7 @@ export default function FleetsPage() {
                 </span>
               </nav>
 
-              {/* Slide 16:9 - 97 — the preview card itself */}
               <div className="relative h-[519px] w-[550px] flex-none self-stretch overflow-hidden rounded-[10px] bg-black/30">
-                {/* Mask group — colored glow, tied to selected fleet color.
-                    Uses CSS mask-image (not a painted overlay) so the color
-                    fades softly instead of showing a hard circular edge. */}
                 <div
                   className="absolute h-[1080px] w-[1080px] transition-colors"
                   style={{
@@ -74,15 +63,13 @@ export default function FleetsPage() {
                     top: -404,
                     background: selectedColor,
                     WebkitMaskImage:
-                      "radial-gradient(80.37% 80.37% at 12.31% 31.85%, black 0%, transparent 57.85%)",
+                      "radial-gradient(80.37% 80.37% at 12.31% 31.85%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 57.85%)",
                     maskImage:
-                      "radial-gradient(80.37% 80.37% at 12.31% 31.85%, black 0%, transparent 57.85%)",
+                      "radial-gradient(80.37% 80.37% at 12.31% 31.85%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 57.85%)",
                   }}
                 />
 
-                {/* Frame 4380 — actual content, right-aligned */}
                 <div className="absolute left-0 top-0 flex h-[519px] w-[550px] flex-col items-end justify-between gap-10 px-12 pb-16 pt-12">
-                  {/* Frame 1000003123 */}
                   <div className="mx-auto flex h-[22px] w-[454px] flex-row items-center justify-end gap-10 self-stretch">
                     <div className="flex h-[22px] w-20 flex-row items-center gap-2">
                       <FolderIcon className="h-[22px] w-[22px] text-white/50" />
@@ -91,7 +78,6 @@ export default function FleetsPage() {
                       </span>
                     </div>
 
-                    {/* Frame 1000003115 — 3 dots indicator */}
                     <div className="flex h-[7px] w-[334px] flex-1 flex-row items-start justify-end gap-[33px]">
                       <div className="flex h-[7px] w-[37px] flex-row items-center gap-2">
                         <span className="h-[7px] w-[7px] rounded-full bg-white/30" />
@@ -101,7 +87,6 @@ export default function FleetsPage() {
                     </div>
                   </div>
 
-                  {/* Infos de la flotte — Titre + Description, live from the form */}
                   <div className="mx-auto flex h-[103px] w-[454px] flex-col items-start gap-6">
                     <p className="h-12 font-['Inter'] text-[40px] font-bold leading-[48px] text-white/40">
                       {name || "Titre"}
@@ -114,10 +99,8 @@ export default function FleetsPage() {
               </div>
             </div>
 
-            {/* Frame 1000003137 — right column (form) */}
             <div className="flex h-[477px] w-[698px] flex-col items-start gap-[60px]">
               <div className="flex w-[698px] flex-col items-start gap-[60px] self-stretch">
-                {/* Frame 1000003255 — title + subtitle */}
                 <div className="flex h-[65px] w-[698px] flex-col items-start gap-4 self-stretch">
                   <h2 className="h-[29px] w-[698px] self-stretch font-['Inter'] text-2xl font-semibold leading-[29px] text-white">
                     Créez votre flotte
@@ -127,9 +110,7 @@ export default function FleetsPage() {
                   </p>
                 </div>
 
-                {/* Frame 1000003134 — Nom de la flotte + Couleur */}
                 <div className="flex h-[69px] w-[698px] flex-row items-start gap-[60px]">
-                  {/* Frame 5077 — Nom de la flotte */}
                   <div className="flex h-[69px] w-[288px] flex-col items-start gap-2">
                     <label className="h-5 w-[288px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white">
                       Nom de la flotte <span className="text-white/70">*</span>
@@ -143,7 +124,6 @@ export default function FleetsPage() {
                     />
                   </div>
 
-                  {/* Frame 5083 — Couleur */}
                   <div className="flex h-[69px] w-[350px] flex-col items-start gap-2">
                     <label className="h-5 w-[350px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white">
                       Couleur
@@ -177,7 +157,6 @@ export default function FleetsPage() {
                   </div>
                 </div>
 
-                {/* Frame 5077 — Description */}
                 <div className="flex h-[120px] w-[698px] flex-col items-start gap-2 self-stretch">
                   <label className="h-5 w-[698px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white">
                     Description
@@ -191,7 +170,6 @@ export default function FleetsPage() {
                 </div>
               </div>
 
-              {/* Frame 5117 — buttons */}
               <div className="flex h-[43px] w-[698px] flex-row items-start justify-between gap-12 self-stretch">
                 <button
                   type="button"
@@ -214,7 +192,6 @@ export default function FleetsPage() {
         </>
       )}
 
-      {/* 3. HEADER  */}
       <header className="fixed left-1/2 top-[47px] z-50 flex h-8 w-[calc(100%-2rem)] max-w-[1712px] -translate-x-1/2 items-center justify-between">
         <button
           type="button"
