@@ -22,7 +22,6 @@ const FLEET_COLORS = [
 export default function FleetsPage() {
   const [isCreateOpen, setIsCreateOpen] = useState(true);
 
-  // Form state — will be replaced by React Hook Form + Zod
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedColor, setSelectedColor] = useState(FLEET_COLORS[0]);
@@ -215,7 +214,7 @@ export default function FleetsPage() {
         </>
       )}
 
-      {/* 3. HEADER — always on top, never blurred, always sharp */}
+      {/* 3. HEADER  */}
       <header className="fixed left-1/2 top-[47px] z-50 flex h-8 w-[calc(100%-2rem)] max-w-[1712px] -translate-x-1/2 items-center justify-between">
         <button
           type="button"
