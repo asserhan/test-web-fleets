@@ -1,12 +1,13 @@
 "use client";
 
 import { Button } from "@/components/button";
-import { MODAL_IDS, useModalActions } from "@/components/modal";
 import { SparkleIcon } from "@/icons";
 
-export const Repertoire = () => {
-  const { openModal } = useModalActions();
+type RepertoireProps = {
+  onCreateClick: () => void;
+};
 
+export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
   return (
     // Frame 4466 — outer wrapper, centered on the 1920x1080 canvas
     <div
@@ -24,7 +25,7 @@ export const Repertoire = () => {
             type="button"
             variant="ghostMedium"
             className="flex h-8 w-[159px] flex-row items-center gap-2 rounded px-2 py-1"
-            onClick={() => openModal(MODAL_IDS.createFleet)}
+            onClick={onCreateClick}
           >
             <SparkleIcon className="h-4 w-4" />
             <span className="font-['Inter'] text-base font-normal leading-6">

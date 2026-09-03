@@ -4,9 +4,10 @@ import { useState } from "react";
 import { CreateFleetModal } from "./CreateFleetModal";
 import { FLEET_COLORS } from "./FleetForm";
 import { FleetsHeader } from "./FleetsHeader";
+import { Repertoire } from "./Repertoire";
 
 export function FleetsPage() {
-  const [isCreateOpen, setIsCreateOpen] = useState(true);
+  const [isCreateOpen, setIsCreateOpen] = useState(false); // false by default now — see note below
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -16,10 +17,7 @@ export function FleetsPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#272149]">
-      <div className="relative z-0">
-        <div className="mx-auto grid w-full max-w-[1712px] grid-cols-3 gap-6 pt-[140px]">
-        </div>
-      </div>
+      <Repertoire onCreateClick={() => setIsCreateOpen(true)} />
 
       {isCreateOpen && (
         <CreateFleetModal
@@ -33,7 +31,7 @@ export function FleetsPage() {
         />
       )}
 
-      <FleetsHeader onClose={handleClose} />
+      {isCreateOpen && <FleetsHeader onClose={handleClose} />}
     </main>
   );
 }
