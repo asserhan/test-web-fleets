@@ -14,12 +14,11 @@ type RepertoireProps = {
 
 const FLEETS_PAGE_SIZE = 12;
 const INFINITE_SCROLL_THRESHOLD = 200;
+const TRACK_HEIGHT = 876;
 
 export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [thumb, setThumb] = useState({ height: 61, top: 0 });
-
-  const TRACK_HEIGHT = 876;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
@@ -55,16 +54,18 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
   };
 
   return (
-    // Frame 4466 — outer wrapper, centered on the 1920x1080 canvas
     <div
-      className="absolute flex flex-col items-end gap-12"
-      style={{ width: 1869, height: 1025, left: "calc(50% - 934.5px - 9.5px)", top: "calc(50% - 512.5px + 27.5px)" }}
+      className="fleets-repertoire absolute flex flex-col items-end gap-12"
+      style={{
+        width: 1869,
+        height: 1025,
+        left: "calc(50% - 934.5px - 9.5px)",
+        top: "calc(50% - 512.5px + 27.5px)",
+      }}
     >
-      {/* Frame 4496 — top row, isolate so the absolutely-positioned trigger stacks correctly */}
-      <div className="relative isolate flex h-12 w-[1869px] flex-row items-center justify-center self-stretch">
-        {/* Frame 5283 — "Créer une flotte" trigger, flush right */}
+      <div className="fleets-repertoire-header relative isolate flex h-12 w-[1869px] flex-row items-center justify-center self-stretch">
         <div
-          className="absolute flex h-8 flex-row items-center justify-end gap-8"
+          className="fleets-repertoire-create-trigger absolute flex h-8 flex-row items-center justify-end gap-8"
           style={{ width: 159, left: 1710, top: 8 }}
         >
           <Button
@@ -81,20 +82,19 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
         </div>
       </div>
 
-      {/* Component 2 — scrollable grid area */}
-      <div className="relative flex h-[932px] w-[1869px] flex-row items-start justify-end gap-4 self-stretch">
-        {/* Frame 4464 — scroll container, native scrollbar hidden */}
+      <div className="fleets-repertoire-body relative flex h-[932px] w-[1869px] flex-row items-start justify-end gap-4 self-stretch">
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex h-[876px] w-[1524px] flex-col items-end gap-20 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="fleets-repertoire-scroll flex h-[876px] w-[1524px] flex-col items-end gap-20 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {/* Frame 4454 — "Vos flottes" section */}
           <div className="flex w-full flex-col items-end gap-6">
             <nav className="flex w-full flex-row items-center gap-[13px]">
+              <span className="font-['Inter'] text-2xl font-extralight leading-[29px] text-[#8179BB]">
+                Vos flottes
+              </span>
             </nav>
 
-            {/* Frame 4366 — the actual card grid */}
             <div className="flex w-full flex-row flex-wrap items-start justify-end gap-6 content-start">
               {fleets.map((fleet) => (
                 <FleetCard
@@ -109,8 +109,7 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
           </div>
         </div>
 
-        {/* Group 4141 — custom scrollbar */}
-        <div className="relative h-[876px] w-3">
+        <div className="fleets-repertoire-scrollbar relative h-[876px] w-3">
           <div
             className="absolute h-[875px] w-0 border-2"
             style={{ left: 6, top: 1, borderColor: "#46406F" }}
@@ -121,7 +120,12 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
           />
           <div
             className="absolute w-[10px] rounded-[10px] transition-[height,top] duration-100"
-            style={{ left: 1, top: thumb.top + 0.72, height: thumb.height, backgroundColor: "#5C5494" }}
+            style={{
+              left: 1,
+              top: thumb.top + 0.72,
+              height: thumb.height,
+              backgroundColor: "#5C5494",
+            }}
           />
         </div>
       </div>

@@ -31,7 +31,7 @@ export function FleetsPage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#272149]">
+    <main className="fleets-page relative min-h-screen overflow-hidden bg-[#272149]">
       <Repertoire onCreateClick={() => setIsCreateOpen(true)} />
 
       {isCreateOpen && (

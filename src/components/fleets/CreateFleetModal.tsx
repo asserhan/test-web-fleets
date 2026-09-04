@@ -52,10 +52,10 @@ export function CreateFleetModal({
       />
 
       <div
-        className="fixed z-40 flex flex-row items-center gap-[164px]"
+        className="fleets-create-modal fixed z-40 flex flex-row items-center gap-[164px]"
         style={{ width: 1412, height: 563, left: 250, top: 258.5 }}
       >
-        <div className="flex h-[563px] w-[550px] flex-col items-start gap-4">
+        <div className="fleets-create-modal-preview flex h-[563px] w-[550px] flex-col items-start gap-4">
           <nav className="flex h-7 w-[204px] flex-row items-center gap-1">
             <span className="h-7 w-[135px] font-['Inter'] text-[18px] font-normal leading-7 text-white/70">
               Votre répertoire

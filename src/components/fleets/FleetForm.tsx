@@ -33,7 +33,7 @@ export function FleetForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex h-[477px] w-[698px] flex-col items-start gap-[60px]"
+      className="fleets-create-form flex h-[477px] w-[698px] flex-col items-start gap-[60px]"
     >
       <div className="flex w-[698px] flex-col items-start gap-[60px] self-stretch">
         <div className="flex h-[65px] w-[698px] flex-col items-start gap-4 self-stretch">
