@@ -1,5 +1,9 @@
-import { TestModal } from "@/components/test-modal";
+import { redirect } from "next/navigation";
+import type { NextPageIntlayer } from "next-intlayer";
 
-export default function Home() {
-  return <TestModal />;
-}
+const LocaleHomePage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+  redirect(`/${locale}/fleets`);
+};
+
+export default LocaleHomePage;

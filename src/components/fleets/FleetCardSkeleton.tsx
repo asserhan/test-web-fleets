@@ -1,6 +1,6 @@
 export function FleetCardSkeleton() {
   return (
-    <div className="relative h-[280px] w-[320px] overflow-hidden rounded-[10px] bg-black/30">
+    <div className="relative h-[280px] w-[320px] overflow-hidden rounded-[10px] border border-white/[0.06] bg-black/30">
       <div className="absolute left-0 top-0 flex h-[280px] w-[320px] flex-col items-end justify-between gap-10 px-6 pb-8 pt-6">
         <div className="flex h-1 w-full flex-row items-start justify-end gap-1">
           <span className="h-1 w-1 rounded-full bg-white/20" />

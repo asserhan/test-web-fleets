@@ -97,7 +97,7 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="fleets-repertoire-scroll flex h-[876px] w-[1524px] flex-col items-end gap-20 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="fleets-repertoire-scroll flex h-[876px] w-[1696px] flex-col items-end gap-20 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {isError ? (
             <div className="flex h-full w-full items-center justify-center">

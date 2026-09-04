@@ -64,7 +64,7 @@ export function FleetForm({
               type="text"
               {...register("title")}
               placeholder={String(content.fleetNamePlaceholder)}
-              className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
+              className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:border-white/20"
             />
             {errors.title && (
               <p className="font-['Inter'] text-xs text-[#DC3848]">
@@ -122,7 +122,7 @@ export function FleetForm({
             id="fleet-description"
             {...register("description")}
             placeholder={String(content.descriptionInputPlaceholder)}
-            className="box-border flex h-[92px] w-[698px] flex-row items-start gap-[308px] self-stretch rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
+            className="box-border h-[92px] w-[698px] resize-none self-stretch rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:border-white/20"
           />
         </div>
       </div>

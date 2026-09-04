@@ -19,7 +19,7 @@ export function FleetCard({
   const content = useIntlayer("fleets");
 
   return (
-    <div className="relative h-[280px] w-[320px] overflow-hidden rounded-[10px] bg-black/30">
+    <div className="relative h-[280px] w-[320px] overflow-hidden rounded-[10px] border border-white/[0.06] bg-black/30">
       <div
         className="absolute h-[1080px] w-[1080px] transition-colors"
         style={{
@@ -50,7 +50,7 @@ export function FleetCard({
           </p>
           <p
             className={`line-clamp-2 w-full font-['Inter'] text-[13px] font-normal leading-[18px] ${
-              description ? "text-white/60" : "text-white/40"
+              description ? "text-white/60" : "text-white/30"
             }`}
           >
             {description || content.cardDescriptionEmpty}
