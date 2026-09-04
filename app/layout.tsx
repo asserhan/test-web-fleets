@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { DynamicBackground } from "@/components/background";
+import { QueryProvider } from "@/components/providers/QueryProvider";
 
 import "./globals.css";
 
@@ -23,10 +24,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 			data-glassmorphism="dark"
 		>
 			<body className="min-h-full flex flex-col">
-				<DynamicBackground />
-				<div id="app-root" className="flex min-h-full flex-1 flex-col">
-					{children}
-				</div>
+				<QueryProvider>
+					<DynamicBackground />
+					<div id="app-root" className="flex min-h-full flex-1 flex-col">
+						{children}
+					</div>
+				</QueryProvider>
 			</body>
 		</html>
 	);

@@ -1,26 +1,49 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { ChevronRightIcon } from "@/icons";
+import { FLEET_COLORS } from "@/lib/constants/fleet-colors";
+import {
+  createFleetSchema,
+  type CreateFleetInput,
+} from "@/lib/validations/fleet";
 import { FleetForm } from "./FleetForm";
 import { FleetPreview } from "./FleetPreview";
 
 type CreateFleetModalProps = {
-  name: string;
-  description: string;
-  selectedColor: string;
-  onNameChange: (value: string) => void;
-  onDescriptionChange: (value: string) => void;
-  onSelectedColorChange: (color: string) => void;
   onClose: () => void;
+  onSubmit: (data: CreateFleetInput) => Promise<void>;
+  isSubmitting?: boolean;
 };
 
 export function CreateFleetModal({
-  name,
-  description,
-  selectedColor,
-  onNameChange,
-  onDescriptionChange,
-  onSelectedColorChange,
   onClose,
+  onSubmit,
+  isSubmitting = false,
 }: CreateFleetModalProps) {
+  const form = useForm<CreateFleetInput>({
+    resolver: zodResolver(createFleetSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      color: FLEET_COLORS[0],
+    },
+  });
+
+  const title = form.watch("title");
+  const description = form.watch("description");
+  const color = form.watch("color");
+
+  const handleSubmit = async (data: CreateFleetInput) => {
+    await onSubmit(data);
+    form.reset({
+      title: "",
+      description: "",
+      color: FLEET_COLORS[0],
+    });
+  };
+
   return (
     <>
       <div
@@ -39,25 +62,22 @@ export function CreateFleetModal({
             </span>
             <ChevronRightIcon className="h-5 w-5 text-white/70" />
             <span className="h-7 w-[41px] font-['Inter'] text-[18px] font-semibold leading-7 text-white">
-              {name || "Titre"}
+              {title || "Titre"}
             </span>
           </nav>
 
           <FleetPreview
-            name={name}
+            name={title}
             description={description}
-            selectedColor={selectedColor}
+            selectedColor={color}
           />
         </div>
 
         <FleetForm
-          name={name}
-          description={description}
-          selectedColor={selectedColor}
-          onNameChange={onNameChange}
-          onDescriptionChange={onDescriptionChange}
-          onSelectedColorChange={onSelectedColorChange}
+          form={form}
           onCancel={onClose}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
         />
       </div>
     </>
