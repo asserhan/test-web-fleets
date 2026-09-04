@@ -32,7 +32,9 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
       className={`${inter.variable} h-full antialiased`}
       data-glassmorphism="dark"
     >
-      <body className="flex min-h-full flex-col">
+      {/* ModalRoot scales #app-root down while a modal is open, so the page
+          background lives on the body to avoid a bare band around it. */}
+      <body className="flex min-h-full flex-col bg-[#272149]">
         <IntlayerClientProvider locale={locale}>
           <QueryProvider>
             <DynamicBackground />

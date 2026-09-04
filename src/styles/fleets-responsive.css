@@ -51,21 +51,4 @@
   .fleets-repertoire-scrollbar > div:nth-child(2) {
     height: 100% !important;
   }
-
-  .fleets-create-modal {
-    left: 50% !important;
-    top: 50% !important;
-    width: 1412px !important;
-    height: auto !important;
-    max-height: calc(100vh - 96px);
-    transform: translate(-50%, -50%) scale(0.72);
-    transform-origin: center center;
-    overflow-y: auto;
-  }
-}
-
-@media (max-width: 1200px) {
-  .fleets-create-modal {
-    transform: translate(-50%, -50%) scale(0.62);
-  }
 }

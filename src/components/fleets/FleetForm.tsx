@@ -2,6 +2,7 @@
 
 import { useIntlayer } from "next-intlayer";
 import type { UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/button";
 import { FLEET_COLORS } from "@/lib/constants/fleet-colors";
 import type { CreateFleetInput } from "@/lib/validations/fleet";
 
@@ -125,22 +126,28 @@ export function FleetForm({
       </div>
 
       <div className="flex h-[43px] w-[698px] flex-row items-start justify-between gap-12 self-stretch">
-        <button
+        <Button
           type="button"
+          variant="danger"
+          textSize="base"
+          alignment="center"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="mx-auto flex h-[43px] w-[90px] flex-row items-center justify-center rounded bg-[#DC3848]/20 px-4 py-3 font-['Inter'] text-base font-normal leading-[19px] text-[#DC3848] disabled:cursor-not-allowed disabled:opacity-60"
+          className="mx-auto h-[43px] w-[90px] rounded leading-[19px]"
         >
           {content.cancel}
-        </button>
+        </Button>
 
-        <button
+        <Button
           type="submit"
+          variant="ghostMonochrome"
+          textSize="base"
+          alignment="center"
           disabled={!title?.trim() || isSubmitting}
-          className="mx-auto flex h-[43px] w-[136px] flex-row items-center justify-center rounded bg-white/5 px-4 py-3 font-['Inter'] text-base font-normal leading-[19px] text-white/40 enabled:text-white disabled:cursor-not-allowed"
+          className="mx-auto h-[43px] w-[136px] rounded bg-white/5 px-4 py-3 font-normal leading-[19px] text-white enabled:hover:text-white disabled:bg-white/5 disabled:text-white/40"
         >
           {content.submit}
-        </button>
+        </Button>
       </div>
     </form>
   );

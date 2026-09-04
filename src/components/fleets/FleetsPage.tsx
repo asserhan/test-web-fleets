@@ -1,30 +1,24 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { MODAL_IDS, useModalActions } from "@/components/modal";
 import { createFleet } from "@/lib/api/fleets";
 import { fleetKeys } from "@/lib/queries/fleet-keys";
 import type { CreateFleetInput } from "@/lib/validations/fleet";
 import { CreateFleetModal } from "./CreateFleetModal";
-import { FleetsHeader } from "./FleetsHeader";
 import { Repertoire } from "./Repertoire";
 
 export function FleetsPage() {
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const queryClient = useQueryClient();
+  const { openModal, closeModal } = useModalActions();
 
   const createFleetMutation = useMutation({
     mutationFn: createFleet,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: fleetKeys.all });
-      setIsCreateOpen(false);
+      closeModal();
     },
   });
-
-  const handleClose = () => {
-    if (createFleetMutation.isPending) return;
-    setIsCreateOpen(false);
-  };
 
   const handleCreateSubmit = async (data: CreateFleetInput) => {
     await createFleetMutation.mutateAsync(data);
@@ -32,17 +26,12 @@ export function FleetsPage() {
 
   return (
     <main className="fleets-page relative min-h-screen overflow-hidden bg-[#272149]">
-      <Repertoire onCreateClick={() => setIsCreateOpen(true)} />
+      <Repertoire onCreateClick={() => openModal(MODAL_IDS.createFleet)} />
 
-      {isCreateOpen && (
-        <CreateFleetModal
-          onClose={handleClose}
-          onSubmit={handleCreateSubmit}
-          isSubmitting={createFleetMutation.isPending}
-        />
-      )}
-
-      {isCreateOpen && <FleetsHeader onClose={handleClose} />}
+      <CreateFleetModal
+        onSubmit={handleCreateSubmit}
+        isSubmitting={createFleetMutation.isPending}
+      />
     </main>
   );
 }
