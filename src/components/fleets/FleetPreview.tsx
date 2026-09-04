@@ -53,7 +53,7 @@ export function FleetPreview({
 
   return (
     <div
-      className="h-[519px] w-[550px] flex-none self-stretch"
+      className="aspect-[550/519] w-full max-w-[550px] flex-none"
       style={{ perspective: 1200 }}
     >
       <motion.div
@@ -65,10 +65,10 @@ export function FleetPreview({
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="relative h-[519px] w-[550px] overflow-hidden rounded-[10px] bg-black/30"
+        className="relative h-full w-full overflow-hidden rounded-[10px] bg-black/30"
       >
         <div
-          className="absolute h-[1080px] w-[1080px] transition-colors"
+          className="pointer-events-none absolute h-[1080px] w-[1080px] transition-colors"
           style={{
             left: -229,
             top: -404,
@@ -80,17 +80,17 @@ export function FleetPreview({
           }}
         />
 
-        <div className="absolute left-0 top-0 flex h-[519px] w-[550px] flex-col items-end justify-between gap-10 px-12 pb-16 pt-12">
-          <div className="mx-auto flex h-[22px] w-[454px] flex-row items-center justify-end gap-10 self-stretch">
-            <div className="flex h-[22px] w-20 flex-row items-center gap-2">
+        <div className="absolute inset-0 flex flex-col items-end justify-between gap-10 px-[8%] pb-[12%] pt-[9%]">
+          <div className="flex w-full flex-row items-center justify-end gap-10">
+            <div className="flex flex-row items-center gap-2">
               <FolderIcon className="h-[22px] w-[22px] text-white/50" />
-              <span className="h-[22px] w-[50px] font-['Inter'] text-[18px] font-normal leading-[22px] text-white/50">
+              <span className="font-['Inter'] text-[clamp(14px,1.1vw,18px)] font-normal leading-[22px] text-white/50">
                 {content.fleetLabel}
               </span>
             </div>
 
-            <div className="flex h-[7px] w-[334px] flex-1 flex-row items-start justify-end gap-[33px]">
-              <div className="flex h-[7px] w-[37px] flex-row items-center gap-2">
+            <div className="flex flex-1 flex-row items-start justify-end">
+              <div className="flex flex-row items-center gap-2">
                 <span className="h-[7px] w-[7px] rounded-full bg-white/30" />
                 <span className="h-[7px] w-[7px] rounded-full bg-white/30" />
                 <span className="h-[7px] w-[7px] rounded-full bg-white/30" />
@@ -98,11 +98,11 @@ export function FleetPreview({
             </div>
           </div>
 
-          <div className="mx-auto flex h-[103px] w-[454px] flex-col items-start gap-6">
-            <p className="h-12 font-['Inter'] text-[40px] font-bold leading-[48px] text-white/40">
+          <div className="flex w-full flex-col items-start gap-4 sm:gap-6">
+            <p className="line-clamp-2 font-['Inter'] text-[clamp(28px,4vw,40px)] font-bold leading-tight text-white/40">
               {name || content.titlePlaceholder}
             </p>
-            <p className="h-[31px] w-[454px] self-stretch font-['Inter'] text-[22px] font-normal leading-[31px] text-white/30">
+            <p className="line-clamp-2 w-full font-['Inter'] text-[clamp(16px,2vw,22px)] font-normal leading-snug text-white/30">
               {description || content.descriptionPlaceholder}
             </p>
           </div>

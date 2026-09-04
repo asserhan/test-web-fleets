@@ -83,32 +83,34 @@ function CreateFleetModalContent({
   const color = form.watch("color");
 
   return (
-    <div className="absolute left-[250px] top-[258.5px] flex h-[563px] w-[1412px] flex-row items-center gap-[164px] max-[1700px]:left-1/2 max-[1700px]:top-1/2 max-[1700px]:-translate-x-1/2 max-[1700px]:-translate-y-1/2 max-[1700px]:scale-[0.85] max-[1400px]:scale-[0.72] max-[1200px]:scale-[0.62]">
-      <div className="flex h-[563px] w-[550px] flex-col items-start gap-4">
-        <nav className="flex h-7 w-[204px] flex-row items-center gap-1">
-          <span className="h-7 w-[135px] font-['Inter'] text-[18px] font-normal leading-7 text-white/70">
-            {content.yourRepertoire}
-          </span>
-          <ChevronRightIcon className="h-5 w-5 text-white/70" />
-          <span className="h-7 w-[41px] font-['Inter'] text-[18px] font-semibold leading-7 text-white">
-            {title || content.titlePlaceholder}
-          </span>
-        </nav>
+    <div className="box-border flex h-full max-h-dvh w-full items-start justify-center overflow-x-hidden overflow-y-auto px-4 py-20 sm:items-center sm:px-6 sm:py-10 lg:px-10">
+      <div className="fleets-create-layout flex w-full max-w-[1412px] flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-center lg:gap-12 xl:gap-20 2xl:gap-[164px]">
+        <div className="flex w-full max-w-[550px] flex-col items-start gap-4 lg:w-[550px] lg:shrink-0">
+          <nav className="flex h-7 max-w-full flex-row items-center gap-1">
+            <span className="truncate font-['Inter'] text-[18px] font-normal leading-7 text-white/70">
+              {content.yourRepertoire}
+            </span>
+            <ChevronRightIcon className="h-5 w-5 shrink-0 text-white/70" />
+            <span className="truncate font-['Inter'] text-[18px] font-semibold leading-7 text-white">
+              {title || content.titlePlaceholder}
+            </span>
+          </nav>
 
-        <FleetPreview
-          name={title}
-          description={description}
-          selectedColor={color}
+          <FleetPreview
+            name={title}
+            description={description}
+            selectedColor={color}
+          />
+        </div>
+
+        <FleetForm
+          form={form}
+          onCancel={closeModal}
+          onSubmit={onSubmit}
+          isSubmitting={isSubmitting}
+          hasError={hasError}
         />
       </div>
-
-      <FleetForm
-        form={form}
-        onCancel={closeModal}
-        onSubmit={onSubmit}
-        isSubmitting={isSubmitting}
-        hasError={hasError}
-      />
     </div>
   );
 }

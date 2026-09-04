@@ -38,23 +38,23 @@ export function FleetForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="fleets-create-form relative flex h-[477px] w-[698px] flex-col items-start gap-[60px]"
+      className="fleets-create-form relative flex w-full max-w-[698px] flex-col items-start gap-10 sm:gap-[60px]"
     >
-      <div className="flex w-[698px] flex-col items-start gap-[60px] self-stretch">
-        <div className="flex h-[65px] w-[698px] flex-col items-start gap-4 self-stretch">
-          <h2 className="h-[29px] w-[698px] self-stretch font-['Inter'] text-2xl font-semibold leading-[29px] text-white">
+      <div className="flex w-full flex-col items-start gap-10 self-stretch sm:gap-[60px]">
+        <div className="flex w-full flex-col items-start gap-4 self-stretch">
+          <h2 className="w-full font-['Inter'] text-2xl font-semibold leading-[29px] text-white">
             {content.createYourFleet}
           </h2>
-          <p className="h-5 w-[349px] font-['Inter'] text-sx font-normal leading-5 text-white/70">
+          <p className="max-w-[349px] font-['Inter'] text-sx font-normal leading-5 text-white/70">
             {content.createYourFleetSubtitle}
           </p>
         </div>
 
-        <div className="flex h-[69px] w-[698px] flex-row items-start gap-[60px]">
-          <div className="flex h-[69px] w-[288px] flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-6 sm:flex-row sm:gap-[60px]">
+          <div className="flex w-full max-w-[288px] flex-col items-start gap-2">
             <label
               htmlFor="fleet-title"
-              className="h-5 w-[288px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white"
+              className="w-full font-['Inter'] text-sx font-medium leading-5 text-white"
             >
               {content.fleetNameLabel}{" "}
               <span className="text-white/70">*</span>
@@ -64,7 +64,7 @@ export function FleetForm({
               type="text"
               {...register("title")}
               placeholder={String(content.fleetNamePlaceholder)}
-              className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:border-white/20"
+              className="box-border h-[41px] w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:border-white/20 focus:outline-none"
             />
             {errors.title && (
               <p className="font-['Inter'] text-xs text-[#DC3848]">
@@ -73,11 +73,11 @@ export function FleetForm({
             )}
           </div>
 
-          <div className="flex h-[69px] w-[350px] flex-col items-start gap-2">
-            <span className="h-5 w-[350px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white">
+          <div className="flex w-full max-w-[350px] flex-col items-start gap-2">
+            <span className="w-full font-['Inter'] text-sx font-medium leading-5 text-white">
               {content.colorLabel}
             </span>
-            <div className="flex h-[41px] w-[350px] flex-row items-center gap-[18px]">
+            <div className="flex h-[41px] w-full flex-row flex-wrap items-center gap-x-[18px] gap-y-2">
               {FLEET_COLORS.map((color) => (
                 <button
                   key={color}
@@ -111,10 +111,10 @@ export function FleetForm({
           </div>
         </div>
 
-        <div className="flex h-[120px] w-[698px] flex-col items-start gap-2 self-stretch">
+        <div className="flex w-full flex-col items-start gap-2 self-stretch">
           <label
             htmlFor="fleet-description"
-            className="h-5 w-[698px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white"
+            className="w-full font-['Inter'] text-sx font-medium leading-5 text-white"
           >
             {content.descriptionLabel}
           </label>
@@ -122,22 +122,21 @@ export function FleetForm({
             id="fleet-description"
             {...register("description")}
             placeholder={String(content.descriptionInputPlaceholder)}
-            className="box-border h-[92px] w-[698px] resize-none self-stretch rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:border-white/20"
+            className="box-border h-[92px] w-full resize-none rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:border-white/20 focus:outline-none"
           />
         </div>
       </div>
 
-      {/* Absolute so the fixed-height Figma layout above is untouched. */}
       {hasError && (
         <p
           role="alert"
-          className="absolute bottom-[55px] left-0 font-['Inter'] text-sx font-normal leading-5 text-[#DC3848]"
+          className="font-['Inter'] text-sx font-normal leading-5 text-[#DC3848]"
         >
           {content.createError}
         </p>
       )}
 
-      <div className="flex h-[43px] w-[698px] flex-row items-start justify-between gap-12 self-stretch">
+      <div className="flex w-full flex-row items-center justify-between gap-4 self-stretch">
         <Button
           type="button"
           variant="danger"
@@ -145,7 +144,7 @@ export function FleetForm({
           alignment="center"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="mx-auto h-[43px] w-[90px] rounded leading-[19px]"
+          className="h-[43px] w-[90px] rounded leading-[19px]"
         >
           {content.cancel}
         </Button>
@@ -156,7 +155,7 @@ export function FleetForm({
           textSize="base"
           alignment="center"
           disabled={!title?.trim() || isSubmitting}
-          className="mx-auto h-[43px] w-[136px] rounded bg-white/5 px-4 py-3 font-normal leading-[19px] text-white enabled:hover:text-white disabled:bg-white/5 disabled:text-white/40"
+          className="h-[43px] w-[136px] rounded bg-white/5 px-4 py-3 font-normal leading-[19px] text-white enabled:hover:text-white disabled:bg-white/5 disabled:text-white/40"
         >
           {content.submit}
         </Button>

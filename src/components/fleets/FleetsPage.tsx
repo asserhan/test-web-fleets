@@ -26,7 +26,7 @@ export function FleetsPage() {
   };
 
   return (
-    <main className="fleets-page relative min-h-screen overflow-hidden bg-[#272149]">
+    <main className="fleets-page relative min-h-dvh overflow-x-hidden overflow-y-auto bg-[#272149]">
       <Repertoire onCreateClick={handleCreateClick} />
 
       <CreateFleetModal
