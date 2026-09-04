@@ -79,6 +79,26 @@ const fleetsContent = {
       fr: "Le nom de la flotte est requis",
       en: "Fleet name is required",
     }),
+    cardDescriptionEmpty: t({
+      fr: "Renseignez une description dans les paramètres de la flotte",
+      en: "Add a description in the fleet settings",
+    }),
+    emptyTitle: t({
+      fr: "Aucune flotte pour le moment",
+      en: "No fleets yet",
+    }),
+    emptyDescription: t({
+      fr: "Créez votre première flotte pour commencer à regrouper vos entreprises",
+      en: "Create your first fleet to start grouping your companies",
+    }),
+    loadError: t({
+      fr: "Le chargement des flottes a échoué. Veuillez réessayer.",
+      en: "Loading fleets failed. Please try again.",
+    }),
+    createError: t({
+      fr: "La création de la flotte a échoué. Veuillez réessayer.",
+      en: "Creating the fleet failed. Please try again.",
+    }),
   },
 } satisfies Dictionary;
 

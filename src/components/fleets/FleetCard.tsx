@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntlayer } from "next-intlayer";
+import { BuildingIcon } from "@/icons";
 
 type FleetCardProps = {
   title: string;
@@ -32,23 +33,37 @@ export function FleetCard({
         }}
       />
 
-      <div className="absolute left-0 top-0 flex h-[280px] w-[320px] flex-col justify-between gap-4 px-6 pb-8 pt-6">
-        <div className="flex w-full flex-row items-center justify-end gap-1">
-          <span className="h-1 w-1 rounded-full bg-white/50" />
-          <span className="h-1 w-1 rounded-full bg-white/50" />
-          <span className="h-1 w-1 rounded-full bg-white/50" />
+      <div className="absolute left-0 top-0 flex h-[280px] w-[320px] flex-col items-end justify-between gap-10 px-6 pb-8 pt-6">
+        <div className="flex h-1 w-full flex-col items-end gap-10">
+          <div className="flex h-1 w-full flex-row items-start justify-end gap-[33px]">
+            <div className="flex h-1 flex-row items-center gap-1">
+              <span className="h-1 w-1 rounded-full bg-white/50" />
+              <span className="h-1 w-1 rounded-full bg-white/50" />
+              <span className="h-1 w-1 rounded-full bg-white/50" />
+            </div>
+          </div>
         </div>
 
-        <div className="flex w-full flex-col items-start gap-3">
-          <p className="line-clamp-2 font-['Inter'] text-lg font-bold leading-6 text-white">
+        <div className="flex w-full flex-col items-start gap-4">
+          <p className="line-clamp-2 w-full font-['Inter'] text-[20px] font-bold leading-6 text-white">
             {title}
           </p>
-          <p className="line-clamp-2 w-full font-['Inter'] text-sm font-normal leading-[18px] text-white/90">
-            {description}
+          <p
+            className={`line-clamp-2 w-full font-['Inter'] text-[13px] font-normal leading-[18px] ${
+              description ? "text-white/60" : "text-white/40"
+            }`}
+          >
+            {description || content.cardDescriptionEmpty}
           </p>
-          <p className="font-['Inter'] text-[13px] font-medium leading-4 tracking-wide text-white">
-            {companyCount} {content.companies}
-          </p>
+        </div>
+
+        <div className="flex h-[22px] w-full flex-row items-center gap-6">
+          <div className="flex h-4 flex-row items-center gap-1.5">
+            <BuildingIcon className="h-2.5 w-[9px] shrink-0 text-white" />
+            <span className="font-['Inter'] text-[13px] font-medium leading-4 tracking-[0.02em] text-white">
+              {companyCount} {content.companies}
+            </span>
+          </div>
         </div>
       </div>
     </div>

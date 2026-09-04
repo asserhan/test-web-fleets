@@ -20,17 +20,19 @@ export function FleetsPage() {
     },
   });
 
-  const handleCreateSubmit = async (data: CreateFleetInput) => {
-    await createFleetMutation.mutateAsync(data);
+  const handleCreateClick = () => {
+    createFleetMutation.reset();
+    openModal(MODAL_IDS.createFleet);
   };
 
   return (
     <main className="fleets-page relative min-h-screen overflow-hidden bg-[#272149]">
-      <Repertoire onCreateClick={() => openModal(MODAL_IDS.createFleet)} />
+      <Repertoire onCreateClick={handleCreateClick} />
 
       <CreateFleetModal
-        onSubmit={handleCreateSubmit}
+        onSubmit={(data: CreateFleetInput) => createFleetMutation.mutate(data)}
         isSubmitting={createFleetMutation.isPending}
+        hasError={createFleetMutation.isError}
       />
     </main>
   );

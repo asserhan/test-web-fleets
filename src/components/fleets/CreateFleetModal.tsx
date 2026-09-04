@@ -16,13 +16,15 @@ import { FleetPreview } from "./FleetPreview";
 import { FleetsHeader } from "./FleetsHeader";
 
 type CreateFleetModalProps = {
-  onSubmit: (data: CreateFleetInput) => Promise<void>;
+  onSubmit: (data: CreateFleetInput) => void;
   isSubmitting?: boolean;
+  hasError?: boolean;
 };
 
 export function CreateFleetModal({
   onSubmit,
   isSubmitting = false,
+  hasError = false,
 }: CreateFleetModalProps) {
   return (
     <Modal
@@ -47,6 +49,7 @@ export function CreateFleetModal({
         <CreateFleetModalContent
           onSubmit={onSubmit}
           isSubmitting={isSubmitting}
+          hasError={hasError}
         />
       </Modal.Content>
     </Modal>
@@ -56,6 +59,7 @@ export function CreateFleetModal({
 function CreateFleetModalContent({
   onSubmit,
   isSubmitting,
+  hasError,
 }: Required<CreateFleetModalProps>) {
   const content = useIntlayer("fleets");
   const { closeModal } = useModalActions();
@@ -103,6 +107,7 @@ function CreateFleetModalContent({
         onCancel={closeModal}
         onSubmit={onSubmit}
         isSubmitting={isSubmitting}
+        hasError={hasError}
       />
     </div>
   );

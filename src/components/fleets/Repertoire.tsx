@@ -5,6 +5,7 @@ import { useIntlayer } from "next-intlayer";
 import { useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { FleetCard } from "@/components/fleets/FleetCard";
+import { FleetCardSkeleton } from "@/components/fleets/FleetCardSkeleton";
 import { SparkleIcon } from "@/icons";
 import { fetchFleets } from "@/lib/api/fleets";
 import { fleetKeys } from "@/lib/queries/fleet-keys";
@@ -14,6 +15,7 @@ type RepertoireProps = {
 };
 
 const FLEETS_PAGE_SIZE = 12;
+const NEXT_PAGE_SKELETONS = 4;
 const INFINITE_SCROLL_THRESHOLD = 200;
 const TRACK_HEIGHT = 876;
 
@@ -22,16 +24,23 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [thumb, setThumb] = useState({ height: 61, top: 0 });
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: fleetKeys.list(),
-      queryFn: ({ pageParam }) =>
-        fetchFleets({ cursor: pageParam, limit: FLEETS_PAGE_SIZE }),
-      initialPageParam: undefined as string | undefined,
-      getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+    isError,
+  } = useInfiniteQuery({
+    queryKey: fleetKeys.list(),
+    queryFn: ({ pageParam }) =>
+      fetchFleets({ cursor: pageParam, limit: FLEETS_PAGE_SIZE }),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+  });
 
   const fleets = data?.pages.flatMap((page) => page.items) ?? [];
+  const isEmpty = !isPending && !isError && fleets.length === 0;
 
   const handleScroll = () => {
     const el = scrollRef.current;
@@ -90,19 +99,45 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
           onScroll={handleScroll}
           className="fleets-repertoire-scroll flex h-[876px] w-[1524px] flex-col items-end gap-20 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          <div className="flex w-full flex-col items-end gap-6">
-            <div className="flex w-full flex-row flex-wrap items-start justify-end gap-6 content-start">
-              {fleets.map((fleet) => (
-                <FleetCard
-                  key={fleet.id}
-                  title={fleet.title}
-                  description={fleet.description}
-                  companyCount={fleet.companyCount}
-                  color={fleet.color}
-                />
-              ))}
+          {isError ? (
+            <div className="flex h-full w-full items-center justify-center">
+              <p className="font-['Inter'] text-base font-normal leading-6 text-white/60">
+                {content.loadError}
+              </p>
             </div>
-          </div>
+          ) : isEmpty ? (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-3">
+              <p className="font-['Inter'] text-[20px] font-semibold leading-7 text-white">
+                {content.emptyTitle}
+              </p>
+              <p className="font-['Inter'] text-sx font-normal leading-5 text-white/60">
+                {content.emptyDescription}
+              </p>
+            </div>
+          ) : (
+            <div className="flex w-full flex-col items-end gap-6">
+              <div className="flex w-full flex-row flex-wrap items-start justify-end gap-6 content-start">
+                {isPending
+                  ? Array.from({ length: FLEETS_PAGE_SIZE }, (_, index) => (
+                      <FleetCardSkeleton key={`fleet-skeleton-${index}`} />
+                    ))
+                  : fleets.map((fleet) => (
+                      <FleetCard
+                        key={fleet.id}
+                        title={fleet.title}
+                        description={fleet.description}
+                        companyCount={fleet.companyCount}
+                        color={fleet.color}
+                      />
+                    ))}
+
+                {isFetchingNextPage &&
+                  Array.from({ length: NEXT_PAGE_SKELETONS }, (_, index) => (
+                    <FleetCardSkeleton key={`fleet-next-skeleton-${index}`} />
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="fleets-repertoire-scrollbar relative h-[876px] w-3">

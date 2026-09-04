@@ -13,6 +13,7 @@ type FleetFormProps = {
   onCancel: () => void;
   onSubmit: (data: CreateFleetInput) => void;
   isSubmitting?: boolean;
+  hasError?: boolean;
 };
 
 export function FleetForm({
@@ -20,6 +21,7 @@ export function FleetForm({
   onCancel,
   onSubmit,
   isSubmitting = false,
+  hasError = false,
 }: FleetFormProps) {
   const content = useIntlayer("fleets");
   const {
@@ -36,14 +38,14 @@ export function FleetForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="fleets-create-form flex h-[477px] w-[698px] flex-col items-start gap-[60px]"
+      className="fleets-create-form relative flex h-[477px] w-[698px] flex-col items-start gap-[60px]"
     >
       <div className="flex w-[698px] flex-col items-start gap-[60px] self-stretch">
         <div className="flex h-[65px] w-[698px] flex-col items-start gap-4 self-stretch">
           <h2 className="h-[29px] w-[698px] self-stretch font-['Inter'] text-2xl font-semibold leading-[29px] text-white">
             {content.createYourFleet}
           </h2>
-          <p className="h-5 w-[349px] font-['Inter'] text-sm font-normal leading-5 text-white/70">
+          <p className="h-5 w-[349px] font-['Inter'] text-sx font-normal leading-5 text-white/70">
             {content.createYourFleetSubtitle}
           </p>
         </div>
@@ -52,7 +54,7 @@ export function FleetForm({
           <div className="flex h-[69px] w-[288px] flex-col items-start gap-2">
             <label
               htmlFor="fleet-title"
-              className="h-5 w-[288px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white"
+              className="h-5 w-[288px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white"
             >
               {content.fleetNameLabel}{" "}
               <span className="text-white/70">*</span>
@@ -62,7 +64,7 @@ export function FleetForm({
               type="text"
               {...register("title")}
               placeholder={String(content.fleetNamePlaceholder)}
-              className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sm font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
+              className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
             />
             {errors.title && (
               <p className="font-['Inter'] text-xs text-[#DC3848]">
@@ -72,7 +74,7 @@ export function FleetForm({
           </div>
 
           <div className="flex h-[69px] w-[350px] flex-col items-start gap-2">
-            <span className="h-5 w-[350px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white">
+            <span className="h-5 w-[350px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white">
               {content.colorLabel}
             </span>
             <div className="flex h-[41px] w-[350px] flex-row items-center gap-[18px]">
@@ -112,7 +114,7 @@ export function FleetForm({
         <div className="flex h-[120px] w-[698px] flex-col items-start gap-2 self-stretch">
           <label
             htmlFor="fleet-description"
-            className="h-5 w-[698px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white"
+            className="h-5 w-[698px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white"
           >
             {content.descriptionLabel}
           </label>
@@ -120,10 +122,20 @@ export function FleetForm({
             id="fleet-description"
             {...register("description")}
             placeholder={String(content.descriptionInputPlaceholder)}
-            className="box-border flex h-[92px] w-[698px] flex-row items-start gap-[308px] self-stretch rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sm font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
+            className="box-border flex h-[92px] w-[698px] flex-row items-start gap-[308px] self-stretch rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
           />
         </div>
       </div>
+
+      {/* Absolute so the fixed-height Figma layout above is untouched. */}
+      {hasError && (
+        <p
+          role="alert"
+          className="absolute bottom-[55px] left-0 font-['Inter'] text-sx font-normal leading-5 text-[#DC3848]"
+        >
+          {content.createError}
+        </p>
+      )}
 
       <div className="flex h-[43px] w-[698px] flex-row items-start justify-between gap-12 self-stretch">
         <Button
