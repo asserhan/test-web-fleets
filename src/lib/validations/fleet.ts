@@ -1,13 +1,19 @@
 import { z } from "zod";
 import { FLEET_COLORS } from "@/lib/constants/fleet-colors";
 
-export const createFleetSchema = z.object({
-  title: z.string().trim().min(1, "Le nom de la flotte est requis"),
+export const createFleetBodySchema = z.object({
+  title: z.string().trim().min(1),
   description: z.string().trim(),
   color: z.enum(FLEET_COLORS),
 });
 
-export type CreateFleetInput = z.infer<typeof createFleetSchema>;
+export function createFleetFormSchema(titleRequiredMessage: string) {
+  return createFleetBodySchema.extend({
+    title: z.string().trim().min(1, titleRequiredMessage),
+  });
+}
+
+export type CreateFleetInput = z.infer<typeof createFleetBodySchema>;
 
 export const listFleetsQuerySchema = z.object({
   cursor: z.string().optional(),

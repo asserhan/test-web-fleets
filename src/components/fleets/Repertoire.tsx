@@ -1,6 +1,7 @@
 "use client";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useIntlayer } from "next-intlayer";
 import { useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { FleetCard } from "@/components/fleets/FleetCard";
@@ -17,6 +18,7 @@ const INFINITE_SCROLL_THRESHOLD = 200;
 const TRACK_HEIGHT = 876;
 
 export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
+  const content = useIntlayer("fleets");
   const scrollRef = useRef<HTMLDivElement>(null);
   const [thumb, setThumb] = useState({ height: 61, top: 0 });
 
@@ -76,7 +78,7 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
           >
             <SparkleIcon className="h-4 w-4" />
             <span className="font-['Inter'] text-base font-normal leading-6">
-              Créer une flotte
+              {content.createFleet}
             </span>
           </Button>
         </div>
@@ -89,12 +91,6 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
           className="fleets-repertoire-scroll flex h-[876px] w-[1524px] flex-col items-end gap-20 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           <div className="flex w-full flex-col items-end gap-6">
-            <nav className="flex w-full flex-row items-center gap-[13px]">
-              <span className="font-['Inter'] text-2xl font-extralight leading-[29px] text-[#8179BB]">
-                Vos flottes
-              </span>
-            </nav>
-
             <div className="flex w-full flex-row flex-wrap items-start justify-end gap-6 content-start">
               {fleets.map((fleet) => (
                 <FleetCard

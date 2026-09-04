@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getDemoUserId } from "@/lib/users/demo-user";
 import {
-  createFleetSchema,
+  createFleetBodySchema,
   listFleetsQuerySchema,
 } from "@/lib/validations/fleet";
 
@@ -51,7 +51,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const parsedBody = createFleetSchema.safeParse(body);
+    const parsedBody = createFleetBodySchema.safeParse(body);
 
     if (!parsedBody.success) {
       return NextResponse.json(
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[POST /api/fleets]", error);
     return NextResponse.json(
-      { error: "Failed to create fleet" },
+      { error: "Failed to Create a fleet" },
       { status: 500 },
     );
   }

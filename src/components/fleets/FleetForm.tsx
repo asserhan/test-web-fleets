@@ -1,5 +1,6 @@
 "use client";
 
+import { useIntlayer } from "next-intlayer";
 import type { UseFormReturn } from "react-hook-form";
 import { FLEET_COLORS } from "@/lib/constants/fleet-colors";
 import type { CreateFleetInput } from "@/lib/validations/fleet";
@@ -19,6 +20,7 @@ export function FleetForm({
   onSubmit,
   isSubmitting = false,
 }: FleetFormProps) {
+  const content = useIntlayer("fleets");
   const {
     register,
     handleSubmit,
@@ -38,10 +40,10 @@ export function FleetForm({
       <div className="flex w-[698px] flex-col items-start gap-[60px] self-stretch">
         <div className="flex h-[65px] w-[698px] flex-col items-start gap-4 self-stretch">
           <h2 className="h-[29px] w-[698px] self-stretch font-['Inter'] text-2xl font-semibold leading-[29px] text-white">
-            Créez votre flotte
+            {content.createYourFleet}
           </h2>
           <p className="h-5 w-[349px] font-['Inter'] text-sm font-normal leading-5 text-white/70">
-            Commencez par définir le profil de votre future flotte
+            {content.createYourFleetSubtitle}
           </p>
         </div>
 
@@ -51,13 +53,14 @@ export function FleetForm({
               htmlFor="fleet-title"
               className="h-5 w-[288px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white"
             >
-              Nom de la flotte <span className="text-white/70">*</span>
+              {content.fleetNameLabel}{" "}
+              <span className="text-white/70">*</span>
             </label>
             <input
               id="fleet-title"
               type="text"
               {...register("title")}
-              placeholder="Renseignez un nom"
+              placeholder={String(content.fleetNamePlaceholder)}
               className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sm font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
             />
             {errors.title && (
@@ -69,7 +72,7 @@ export function FleetForm({
 
           <div className="flex h-[69px] w-[350px] flex-col items-start gap-2">
             <span className="h-5 w-[350px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white">
-              Couleur
+              {content.colorLabel}
             </span>
             <div className="flex h-[41px] w-[350px] flex-row items-center gap-[18px]">
               {FLEET_COLORS.map((color) => (
@@ -82,7 +85,7 @@ export function FleetForm({
                       shouldValidate: true,
                     })
                   }
-                  aria-label={`Choisir la couleur ${color}`}
+                  aria-label={`${content.chooseColor} ${color}`}
                   className="relative flex h-7 w-7 items-center justify-center rounded-full"
                   style={{
                     border:
@@ -110,12 +113,12 @@ export function FleetForm({
             htmlFor="fleet-description"
             className="h-5 w-[698px] self-stretch font-['Inter'] text-sm font-medium leading-5 text-white"
           >
-            Description
+            {content.descriptionLabel}
           </label>
           <textarea
             id="fleet-description"
             {...register("description")}
-            placeholder="Inscrivez une description sur le sujet de la flotte"
+            placeholder={String(content.descriptionInputPlaceholder)}
             className="box-border flex h-[92px] w-[698px] flex-row items-start gap-[308px] self-stretch rounded-lg border border-black/10 bg-white/10 px-4 py-3 font-['Inter'] text-sm font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
           />
         </div>
@@ -128,7 +131,7 @@ export function FleetForm({
           disabled={isSubmitting}
           className="mx-auto flex h-[43px] w-[90px] flex-row items-center justify-center rounded bg-[#DC3848]/20 px-4 py-3 font-['Inter'] text-base font-normal leading-[19px] text-[#DC3848] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Annuler
+          {content.cancel}
         </button>
 
         <button
@@ -136,7 +139,7 @@ export function FleetForm({
           disabled={!title?.trim() || isSubmitting}
           className="mx-auto flex h-[43px] w-[136px] flex-row items-center justify-center rounded bg-white/5 px-4 py-3 font-['Inter'] text-base font-normal leading-[19px] text-white/40 enabled:text-white disabled:cursor-not-allowed"
         >
-          Créer la flotte
+          {content.submit}
         </button>
       </div>
     </form>

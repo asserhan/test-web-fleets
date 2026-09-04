@@ -1,5 +1,5 @@
-import { TestModal } from "@/components/test-modal";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-	return <TestModal />;
+export default function RootRedirectPage() {
+  redirect("/fr");
 }

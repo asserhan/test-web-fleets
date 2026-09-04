@@ -6,6 +6,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import { useIntlayer } from "next-intlayer";
 import { useRef } from "react";
 import { FolderIcon } from "@/icons";
 
@@ -22,6 +23,7 @@ export function FleetPreview({
   description,
   selectedColor,
 }: FleetPreviewProps) {
+  const content = useIntlayer("fleets");
   const cardRef = useRef<HTMLDivElement>(null);
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -83,7 +85,7 @@ export function FleetPreview({
             <div className="flex h-[22px] w-20 flex-row items-center gap-2">
               <FolderIcon className="h-[22px] w-[22px] text-white/50" />
               <span className="h-[22px] w-[50px] font-['Inter'] text-[18px] font-normal leading-[22px] text-white/50">
-                Flotte
+                {content.fleetLabel}
               </span>
             </div>
 
@@ -98,10 +100,10 @@ export function FleetPreview({
 
           <div className="mx-auto flex h-[103px] w-[454px] flex-col items-start gap-6">
             <p className="h-12 font-['Inter'] text-[40px] font-bold leading-[48px] text-white/40">
-              {name || "Titre"}
+              {name || content.titlePlaceholder}
             </p>
             <p className="h-[31px] w-[454px] self-stretch font-['Inter'] text-[22px] font-normal leading-[31px] text-white/30">
-              {description || "Description"}
+              {description || content.descriptionPlaceholder}
             </p>
           </div>
         </div>

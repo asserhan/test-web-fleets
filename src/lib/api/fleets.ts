@@ -47,7 +47,7 @@ export async function createFleet(input: CreateFleetInput): Promise<Fleet> {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to create fleet");
+    throw new Error("Failed to Create a fleet");
   }
 
   return response.json();

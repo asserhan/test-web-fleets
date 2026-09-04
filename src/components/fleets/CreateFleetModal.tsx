@@ -1,11 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useIntlayer } from "next-intlayer";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronRightIcon } from "@/icons";
 import { FLEET_COLORS } from "@/lib/constants/fleet-colors";
 import {
-  createFleetSchema,
+  createFleetFormSchema,
   type CreateFleetInput,
 } from "@/lib/validations/fleet";
 import { FleetForm } from "./FleetForm";
@@ -22,8 +24,14 @@ export function CreateFleetModal({
   onSubmit,
   isSubmitting = false,
 }: CreateFleetModalProps) {
+  const content = useIntlayer("fleets");
+  const fleetSchema = useMemo(
+    () => createFleetFormSchema(String(content.titleRequired)),
+    [content.titleRequired],
+  );
+
   const form = useForm<CreateFleetInput>({
-    resolver: zodResolver(createFleetSchema),
+    resolver: zodResolver(fleetSchema),
     defaultValues: {
       title: "",
       description: "",
@@ -58,11 +66,11 @@ export function CreateFleetModal({
         <div className="fleets-create-modal-preview flex h-[563px] w-[550px] flex-col items-start gap-4">
           <nav className="flex h-7 w-[204px] flex-row items-center gap-1">
             <span className="h-7 w-[135px] font-['Inter'] text-[18px] font-normal leading-7 text-white/70">
-              Votre répertoire
+              {content.yourRepertoire}
             </span>
             <ChevronRightIcon className="h-5 w-5 text-white/70" />
             <span className="h-7 w-[41px] font-['Inter'] text-[18px] font-semibold leading-7 text-white">
-              {title || "Titre"}
+              {title || content.titlePlaceholder}
             </span>
           </nav>
 

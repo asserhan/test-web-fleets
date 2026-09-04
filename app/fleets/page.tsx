@@ -1,5 +1,5 @@
-import { FleetsPage } from "@/components/fleets/FleetsPage";
+import { redirect } from "next/navigation";
 
-export default function Page() {
-  return <FleetsPage />;
+export default function FleetsRedirectPage() {
+  redirect("/fr/fleets");
 }
