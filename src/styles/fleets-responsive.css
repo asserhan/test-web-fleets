@@ -1,0 +1,54 @@
+/* 1400×900 — responsive overrides only. 1920×1080 uses original inline Figma values. */
+
+@media (max-width: 1400px) {
+  .fleets-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .fleets-repertoire {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 1368px;
+    height: auto !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 96px auto 32px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .fleets-repertoire-header {
+    width: 100% !important;
+  }
+
+  .fleets-repertoire-create-trigger {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    margin-left: auto;
+  }
+
+  .fleets-repertoire-body {
+    width: 100% !important;
+    height: min(876px, calc(100vh - 200px)) !important;
+  }
+
+  .fleets-repertoire-scroll {
+    width: calc(100% - 16px) !important;
+    height: 100% !important;
+  }
+
+  .fleets-repertoire-scrollbar {
+    height: 100% !important;
+  }
+
+  .fleets-repertoire-scrollbar > div:first-child {
+    height: calc(100% - 1px) !important;
+  }
+
+  .fleets-repertoire-scrollbar > div:nth-child(2) {
+    height: 100% !important;
+  }
+}

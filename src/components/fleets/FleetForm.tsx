@@ -1,0 +1,166 @@
+"use client";
+
+import { useIntlayer } from "next-intlayer";
+import type { UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/button";
+import { FLEET_COLORS } from "@/lib/constants/fleet-colors";
+import type { CreateFleetInput } from "@/lib/validations/fleet";
+
+export { FLEET_COLORS };
+
+type FleetFormProps = {
+  form: UseFormReturn<CreateFleetInput>;
+  onCancel: () => void;
+  onSubmit: (data: CreateFleetInput) => void;
+  isSubmitting?: boolean;
+  hasError?: boolean;
+};
+
+export function FleetForm({
+  form,
+  onCancel,
+  onSubmit,
+  isSubmitting = false,
+  hasError = false,
+}: FleetFormProps) {
+  const content = useIntlayer("fleets");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = form;
+
+  const title = watch("title");
+  const selectedColor = watch("color");
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="fleets-create-form relative flex h-[477px] w-[698px] flex-col items-start gap-[60px]"
+    >
+      <div className="flex w-[698px] flex-col items-start gap-[60px] self-stretch">
+        <div className="flex h-[65px] w-[698px] flex-col items-start gap-4 self-stretch">
+          <h2 className="h-[29px] w-[698px] self-stretch font-['Inter'] text-2xl font-semibold leading-[29px] text-white">
+            {content.createYourFleet}
+          </h2>
+          <p className="h-5 w-[349px] font-['Inter'] text-sx font-normal leading-5 text-white/70">
+            {content.createYourFleetSubtitle}
+          </p>
+        </div>
+
+        <div className="flex h-[69px] w-[698px] flex-row items-start gap-[60px]">
+          <div className="flex h-[69px] w-[288px] flex-col items-start gap-2">
+            <label
+              htmlFor="fleet-title"
+              className="h-5 w-[288px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white"
+            >
+              {content.fleetNameLabel}{" "}
+              <span className="text-white/70">*</span>
+            </label>
+            <input
+              id="fleet-title"
+              type="text"
+              {...register("title")}
+              placeholder={String(content.fleetNamePlaceholder)}
+              className="box-border flex h-[41px] w-[288px] flex-row items-start gap-[308px] rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:border-white/20"
+            />
+            {errors.title && (
+              <p className="font-['Inter'] text-xs text-[#DC3848]">
+                {errors.title.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex h-[69px] w-[350px] flex-col items-start gap-2">
+            <span className="h-5 w-[350px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white">
+              {content.colorLabel}
+            </span>
+            <div className="flex h-[41px] w-[350px] flex-row items-center gap-[18px]">
+              {FLEET_COLORS.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  onClick={() =>
+                    setValue("color", color, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    })
+                  }
+                  aria-label={`${content.chooseColor} ${color}`}
+                  className="relative flex h-7 w-7 items-center justify-center rounded-full"
+                  style={{
+                    border:
+                      selectedColor === color
+                        ? `1.5px solid ${color}`
+                        : "1.5px solid transparent",
+                  }}
+                >
+                  <span
+                    className="rounded-full"
+                    style={{
+                      width: selectedColor === color ? 18 : 28,
+                      height: selectedColor === color ? 18 : 28,
+                      background: color,
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex h-[120px] w-[698px] flex-col items-start gap-2 self-stretch">
+          <label
+            htmlFor="fleet-description"
+            className="h-5 w-[698px] self-stretch font-['Inter'] text-sx font-medium leading-5 text-white"
+          >
+            {content.descriptionLabel}
+          </label>
+          <textarea
+            id="fleet-description"
+            {...register("description")}
+            placeholder={String(content.descriptionInputPlaceholder)}
+            className="box-border h-[92px] w-[698px] resize-none self-stretch rounded-lg border border-white/10 bg-white/10 px-4 py-3 font-['Inter'] text-sx font-normal leading-[17px] text-white placeholder:text-white/40 focus:outline-none focus:border-white/20"
+          />
+        </div>
+      </div>
+
+      {/* Absolute so the fixed-height Figma layout above is untouched. */}
+      {hasError && (
+        <p
+          role="alert"
+          className="absolute bottom-[55px] left-0 font-['Inter'] text-sx font-normal leading-5 text-[#DC3848]"
+        >
+          {content.createError}
+        </p>
+      )}
+
+      <div className="flex h-[43px] w-[698px] flex-row items-start justify-between gap-12 self-stretch">
+        <Button
+          type="button"
+          variant="danger"
+          textSize="base"
+          alignment="center"
+          onClick={onCancel}
+          disabled={isSubmitting}
+          className="mx-auto h-[43px] w-[90px] rounded leading-[19px]"
+        >
+          {content.cancel}
+        </Button>
+
+        <Button
+          type="submit"
+          variant="ghostMonochrome"
+          textSize="base"
+          alignment="center"
+          disabled={!title?.trim() || isSubmitting}
+          className="mx-auto h-[43px] w-[136px] rounded bg-white/5 px-4 py-3 font-normal leading-[19px] text-white enabled:hover:text-white disabled:bg-white/5 disabled:text-white/40"
+        >
+          {content.submit}
+        </Button>
+      </div>
+    </form>
+  );
+}
