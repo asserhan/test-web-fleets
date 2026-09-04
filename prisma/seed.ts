@@ -19,9 +19,9 @@ const FLEET_COLORS = [
 
 const SHORT_TITLE = "Incubateur HEC";
 const LONG_TITLE = "Ceci est un titre long sur 2 lignes pour une flotte";
-const SHORT_DESCRIPTION = "Toutes les startups de l'incubateur HEC";
+const SHORT_DESCRIPTION = "Toutes les startups de l'Incubateur HEC";
 const LONG_DESCRIPTION =
-  "Toutes les startups de l'incubateur HEC qu'importe l'année de leur promotion et de leur secteur d'activité";
+  "Toutes les startups de l'Incubateur HEC qu'importe l'année de leur promotion et de leur secteur d'activité";
 
 // Mirrors the Figma demo grid: same titles/descriptions, 128 companies,
 // empty descriptions for the placeholder, 18 rows so infinite scroll pages.
