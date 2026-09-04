@@ -78,15 +78,40 @@ export const Repertoire = ({ onCreateClick }: RepertoireProps) => {
   };
 
   useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || isPending || isFetchingNextPage || !hasNextPage) return;
+
+    if (el.scrollHeight <= el.clientHeight + INFINITE_SCROLL_THRESHOLD) {
+      void fetchNextPage();
+    }
+  }, [
+    fleets.length,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+    fetchNextPage,
+  ]);
+
+  useEffect(() => {
     updateThumb();
 
     const el = scrollRef.current;
     if (!el || typeof ResizeObserver === "undefined") return;
 
-    const observer = new ResizeObserver(() => updateThumb());
+    const observer = new ResizeObserver(() => {
+      updateThumb();
+
+      if (
+        el.scrollHeight <= el.clientHeight + INFINITE_SCROLL_THRESHOLD &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        void fetchNextPage();
+      }
+    });
     observer.observe(el);
     return () => observer.disconnect();
-  }, [fleets.length, isPending]);
+  }, [fleets.length, isPending, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <div className="fleets-repertoire mx-auto flex h-dvh w-full max-w-[1800px] flex-col gap-6 px-4 pb-6 pt-8 sm:gap-8 sm:px-6 sm:pt-10 lg:px-10 xl:px-12">
