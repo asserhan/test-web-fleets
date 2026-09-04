@@ -17,107 +17,127 @@ const FLEET_COLORS = [
   "#AE32E3",
 ] as const;
 
-// 18 fleets so the paginated list (12 per page) needs a second fetch.
-// A few descriptions are intentionally empty to exercise the card placeholder.
+const SHORT_TITLE = "Incubateur HEC";
+const LONG_TITLE = "Ceci est un titre long sur 2 lignes pour une flotte";
+const SHORT_DESCRIPTION = "Toutes les startups de l'incubateur HEC";
+const LONG_DESCRIPTION =
+  "Toutes les startups de l'incubateur HEC qu'importe l'année de leur promotion et de leur secteur d'activité";
+
+// Mirrors the Figma demo grid: same titles/descriptions, 128 companies,
+// empty descriptions for the placeholder, 18 rows so infinite scroll pages.
 const FLEET_SEEDS: Array<{
   title: string;
   description: string;
   companyCount: number;
+  color: (typeof FLEET_COLORS)[number];
 }> = [
   {
-    title: "Incubateur HEC",
-    description: "Toutes les startups de l'incubateur HEC",
+    title: LONG_TITLE,
+    description: SHORT_DESCRIPTION,
     companyCount: 128,
+    color: FLEET_COLORS[7],
   },
   {
-    title: "Ceci est un titre long sur 2 lignes pour une flotte",
-    description:
-      "Toutes les startups de l'incubateur HEC qu'importe l'année de leur promotion et de leur secteur d'activité",
-    companyCount: 64,
+    title: LONG_TITLE,
+    description: LONG_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[1],
   },
   {
-    title: "Prospection France",
+    title: SHORT_TITLE,
+    description: LONG_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[0],
+  },
+  {
+    title: LONG_TITLE,
     description: "",
-    companyCount: 212,
+    companyCount: 128,
+    color: FLEET_COLORS[6],
   },
   {
-    title: "Station F — Founders Program",
-    description: "Startups en phase d'amorçage suivies depuis Station F",
-    companyCount: 87,
-  },
-  {
-    title: "Deeptech & Industrie",
-    description:
-      "Sociétés industrielles et deeptech identifiées lors du dernier salon",
-    companyCount: 41,
-  },
-  {
-    title: "SaaS B2B — Série A",
-    description: "Éditeurs SaaS ayant levé une Série A sur les 18 derniers mois",
-    companyCount: 156,
-  },
-  {
-    title: "Retail & E-commerce",
+    title: SHORT_TITLE,
     description: "",
-    companyCount: 93,
+    companyCount: 128,
+    color: FLEET_COLORS[2],
   },
   {
-    title: "Fintech Europe",
-    description:
-      "Fintechs européennes réglementées, hors crypto-actifs et néobanques",
-    companyCount: 74,
+    title: SHORT_TITLE,
+    description: SHORT_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[2],
   },
   {
-    title: "Grands comptes CAC 40",
-    description: "Comptes stratégiques suivis par l'équipe entreprise",
-    companyCount: 40,
-  },
-  {
-    title: "Santé & Biotech",
-    description: "Laboratoires et medtech en phase clinique",
-    companyCount: 58,
-  },
-  {
-    title: "Mobilité durable",
+    title: SHORT_TITLE,
     description: "",
-    companyCount: 31,
+    companyCount: 128,
+    color: FLEET_COLORS[3],
   },
   {
-    title: "Agritech Occitanie",
-    description: "Exploitations et coopératives partenaires en Occitanie",
-    companyCount: 22,
-  },
-  {
-    title: "Cybersécurité",
-    description:
-      "Éditeurs et cabinets de conseil spécialisés en sécurité offensive",
-    companyCount: 67,
-  },
-  {
-    title: "Greentech & Énergie",
-    description: "Producteurs et intégrateurs d'énergies renouvelables",
-    companyCount: 105,
-  },
-  {
-    title: "Marketplace & Logistique",
+    title: SHORT_TITLE,
     description: "",
-    companyCount: 49,
+    companyCount: 128,
+    color: FLEET_COLORS[4],
   },
   {
-    title: "Éducation & EdTech",
-    description: "Organismes de formation et plateformes d'apprentissage",
-    companyCount: 36,
+    title: SHORT_TITLE,
+    description: SHORT_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[0],
   },
   {
-    title: "Immobilier & Proptech",
-    description: "Foncières, promoteurs et startups proptech",
-    companyCount: 82,
+    title: SHORT_TITLE,
+    description: LONG_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[5],
   },
   {
-    title: "Média & Divertissement",
-    description:
-      "Studios, éditeurs et plateformes de diffusion en Europe francophone",
-    companyCount: 27,
+    title: LONG_TITLE,
+    description: SHORT_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[1],
+  },
+  {
+    title: SHORT_TITLE,
+    description: "",
+    companyCount: 128,
+    color: FLEET_COLORS[6],
+  },
+  {
+    title: SHORT_TITLE,
+    description: SHORT_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[3],
+  },
+  {
+    title: LONG_TITLE,
+    description: LONG_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[4],
+  },
+  {
+    title: SHORT_TITLE,
+    description: "",
+    companyCount: 128,
+    color: FLEET_COLORS[5],
+  },
+  {
+    title: SHORT_TITLE,
+    description: SHORT_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[7],
+  },
+  {
+    title: LONG_TITLE,
+    description: "",
+    companyCount: 128,
+    color: FLEET_COLORS[0],
+  },
+  {
+    title: SHORT_TITLE,
+    description: LONG_DESCRIPTION,
+    companyCount: 128,
+    color: FLEET_COLORS[2],
   },
 ];
 
@@ -134,6 +154,7 @@ async function main() {
   });
 
   console.log(`Seeded demo user: ${user.email} (${user.id})`);
+  console.log(`Using DATABASE_URL host: ${new URL(process.env.DATABASE_URL!).host}`);
 
   if (process.env.SEED_RESET === "true") {
     const { count } = await prisma.fleet.deleteMany({
@@ -149,19 +170,21 @@ async function main() {
       `Skipped fleet seed: user already has ${existing} fleet(s). Re-run with SEED_RESET=true to replace them.`,
     );
   } else {
-    // Spaced timestamps keep the (createdAt, id) cursor ordering deterministic.
-    const oldest = Date.now() - FLEET_SEEDS.length * 60_000;
+    // Newest first in the UI: create in reverse so the Figma first row is on top.
+    const newest = Date.now();
 
     await prisma.fleet.createMany({
       data: FLEET_SEEDS.map((seed, index) => ({
-        ...seed,
-        color: FLEET_COLORS[index % FLEET_COLORS.length],
+        title: seed.title,
+        description: seed.description,
+        companyCount: seed.companyCount,
+        color: seed.color,
         userId: user.id,
-        createdAt: new Date(oldest + index * 60_000),
+        createdAt: new Date(newest - index * 60_000),
       })),
     });
 
-    console.log(`Seeded ${FLEET_SEEDS.length} fleets`);
+    console.log(`Seeded ${FLEET_SEEDS.length} fleets (Figma demo data)`);
   }
 
   await prisma.$disconnect();
