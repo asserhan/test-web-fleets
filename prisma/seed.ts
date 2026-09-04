@@ -23,123 +23,32 @@ const SHORT_DESCRIPTION = "Toutes les startups de l'Incubateur HEC";
 const LONG_DESCRIPTION =
   "Toutes les startups de l'Incubateur HEC qu'importe l'année de leur promotion et de leur secteur d'activité";
 
-// Mirrors the Figma demo grid: same titles/descriptions, 128 companies,
-// empty descriptions for the placeholder, 18 rows so infinite scroll pages.
-const FLEET_SEEDS: Array<{
-  title: string;
-  description: string;
-  companyCount: number;
-  color: (typeof FLEET_COLORS)[number];
-}> = [
-  {
-    title: LONG_TITLE,
-    description: SHORT_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[7],
-  },
-  {
-    title: LONG_TITLE,
-    description: LONG_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[1],
-  },
-  {
-    title: SHORT_TITLE,
-    description: LONG_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[0],
-  },
-  {
-    title: LONG_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[6],
-  },
-  {
-    title: SHORT_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[2],
-  },
-  {
-    title: SHORT_TITLE,
-    description: SHORT_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[2],
-  },
-  {
-    title: SHORT_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[3],
-  },
-  {
-    title: SHORT_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[4],
-  },
-  {
-    title: SHORT_TITLE,
-    description: SHORT_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[0],
-  },
-  {
-    title: SHORT_TITLE,
-    description: LONG_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[5],
-  },
-  {
-    title: LONG_TITLE,
-    description: SHORT_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[1],
-  },
-  {
-    title: SHORT_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[6],
-  },
-  {
-    title: SHORT_TITLE,
-    description: SHORT_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[3],
-  },
-  {
-    title: LONG_TITLE,
-    description: LONG_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[4],
-  },
-  {
-    title: SHORT_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[5],
-  },
-  {
-    title: SHORT_TITLE,
-    description: SHORT_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[7],
-  },
-  {
-    title: LONG_TITLE,
-    description: "",
-    companyCount: 128,
-    color: FLEET_COLORS[0],
-  },
-  {
-    title: SHORT_TITLE,
-    description: LONG_DESCRIPTION,
-    companyCount: 128,
-    color: FLEET_COLORS[2],
-  },
+// Figma card variants (title × description). Repeated to fill several scroll pages.
+const FIGMA_VARIANTS: Array<{ title: string; description: string }> = [
+  { title: LONG_TITLE, description: SHORT_DESCRIPTION },
+  { title: LONG_TITLE, description: LONG_DESCRIPTION },
+  { title: SHORT_TITLE, description: LONG_DESCRIPTION },
+  { title: LONG_TITLE, description: "" },
+  { title: SHORT_TITLE, description: "" },
+  { title: SHORT_TITLE, description: SHORT_DESCRIPTION },
+  { title: SHORT_TITLE, description: "" },
+  { title: SHORT_TITLE, description: "" },
+  { title: SHORT_TITLE, description: SHORT_DESCRIPTION },
+  { title: SHORT_TITLE, description: LONG_DESCRIPTION },
 ];
+
+// 40 fleets ≈ 4 pages at limit=12 — enough to exercise infinite scroll.
+const FLEET_COUNT = 40;
+
+const FLEET_SEEDS = Array.from({ length: FLEET_COUNT }, (_, index) => {
+  const variant = FIGMA_VARIANTS[index % FIGMA_VARIANTS.length];
+  return {
+    title: variant.title,
+    description: variant.description,
+    companyCount: 128,
+    color: FLEET_COLORS[index % FLEET_COLORS.length],
+  };
+});
 
 async function main() {
   const adapter = new PrismaPg({
